@@ -131,7 +131,7 @@ export class ApiService {
 
   private resolveApiUrl(): string {
     if (typeof window === 'undefined') {
-      return 'http://localhost:3000/api';
+      return 'https://fintrackbackend-xtg8.onrender.com/api';
     }
 
     const configuredUrl = window.finTrackConfig?.apiBaseUrl?.trim();
