@@ -1,0 +1,266 @@
+<div class="main container">
+  <div class="view-header">
+    <div class="header-text">
+      <h1>Budgets</h1>
+      <p>{{ selectedMonthLabel }}</p>
+    </div>
+
+    <div class="header-tools">
+      <div class="period-controls" aria-label="Select budget month">
+        <button type="button" (click)="changeMonth(-1)">Previous</button>
+        <input type="month" [(ngModel)]="selectedMonth" (ngModelChange)="applyMonthFilter()" />
+        <button type="button" (click)="changeMonth(1)">Next</button>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-secondary" type="button" (click)="loadBudgetData()" [disabled]="isLoadingBudgets">
+          {{ isLoadingBudgets ? 'Refreshing...' : 'Refresh' }}
+        </button>
+        <button class="btn-primary" type="button" (click)="exportBudgetCsv()" [disabled]="categoryBudgets.length === 0">
+          Export CSV
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="budgetError" class="budget-alert">
+    {{ budgetError }}
+  </div>
+
+  <div class="summary-grid">
+    <div class="metric-card">
+      <span class="label">Monthly Budget</span>
+      <strong>{{ totalMonthlyBudget | currency:'XAF':'symbol':'1.0-0' }}</strong>
+    </div>
+    <div class="metric-card spent">
+      <span class="label">Spent</span>
+      <strong>{{ totalSpent | currency:'XAF':'symbol':'1.0-0' }}</strong>
+    </div>
+    <div class="metric-card" [ngClass]="{'negative': totalRemaining < 0}">
+      <span class="label">Remaining</span>
+      <strong>{{ totalRemaining | currency:'XAF':'symbol':'1.0-0' }}</strong>
+    </div>
+    <div class="metric-card">
+      <span class="label">Days Left</span>
+      <strong>{{ daysLeft }}</strong>
+    </div>
+  </div>
+
+  <div class="budget-overview">
+    <div class="overview-card">
+      <div class="card-title-row">
+        <div>
+          <h2>Monthly Usage</h2>
+          <p>{{ selectedMonthTransactions.length }} transaction{{ selectedMonthTransactions.length === 1 ? '' : 's' }} tracked</p>
+        </div>
+        <span class="status-pill" [ngClass]="budgetStatusClass">{{ budgetStatusLabel }}</span>
+      </div>
+
+      <div class="usage-line">
+        <span>{{ totalSpent | currency:'XAF':'symbol':'1.0-0' }}</span>
+        <span>{{ totalMonthlyBudget | currency:'XAF':'symbol':'1.0-0' }}</span>
+      </div>
+      <div class="main-progress">
+        <div class="main-progress-fill" [ngClass]="budgetStatusClass" [style.width.%]="budgetUsedPercent"></div>
+      </div>
+      <p class="usage-note">{{ budgetUsedPercent }}% used this month.</p>
+
+      <div class="mini-metrics">
+        <div>
+          <span>Daily AVG</span>
+          <strong>{{ dailyAverage | currency:'XAF':'symbol':'1.0-0' }}</strong>
+        </div>
+        <div>
+          <span>Projected</span>
+          <strong>{{ projectedSpending | currency:'XAF':'symbol':'1.0-0' }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget-tools-stack">
+      <form class="budget-limit-card" (ngSubmit)="saveMonthlyBudgetLimit()">
+        <h2>Monthly Limit</h2>
+        <label for="monthly-budget-limit">Limit Amount</label>
+        <input
+          id="monthly-budget-limit"
+          name="monthlyBudgetLimit"
+          type="number"
+          min="0"
+          step="1000"
+          [(ngModel)]="draftMonthlyBudgetLimit"
+          placeholder="500000" />
+
+        <div class="limit-summary">
+          <span>Allocated: <strong>{{ allocatedBudgetTotal | currency:'XAF':'symbol':'1.0-0' }}</strong></span>
+          <span>Available: <strong [ngClass]="{'negative-text': unallocatedBudget < 0}">{{ unallocatedBudget | currency:'XAF':'symbol':'1.0-0' }}</strong></span>
+        </div>
+
+        <button class="btn-primary" type="submit">Save Limit</button>
+      </form>
+
+      <form class="add-budget-card" (ngSubmit)="addCategory()">
+        <h2>Add Category</h2>
+        <label for="category-name">Category</label>
+        <input
+          id="category-name"
+          name="categoryName"
+          type="text"
+          [(ngModel)]="newCategoryName"
+          placeholder="Utilities" />
+
+        <label for="category-limit">Monthly Limit</label>
+        <input
+          id="category-limit"
+          name="categoryLimit"
+          type="number"
+          min="0"
+          step="1000"
+          [(ngModel)]="newCategoryLimit"
+          placeholder="50000" />
+
+        <button class="btn-primary" type="submit">Add Budget</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">
+      <h2>Category Budgets</h2>
+      <span>{{ categoryBudgets.length }} categories</span>
+    </div>
+
+    <div *ngIf="isLoadingBudgets" class="budget-state">
+      Loading budgets...
+    </div>
+
+    <div class="categories-grid" *ngIf="!isLoadingBudgets">
+      <div class="category-card" *ngFor="let category of categoryBudgets">
+        <div class="card-header">
+          <h3>{{ category.name }}</h3>
+          <span class="status-pill" [ngClass]="category.status.toLowerCase().replace(' ', '-')">
+            {{ category.status }}
+          </span>
+        </div>
+
+        <div class="category-amounts">
+          <div>
+            <span>Spent</span>
+            <strong>{{ category.spent | currency:'XAF':'symbol':'1.0-0' }}</strong>
+          </div>
+          <div *ngIf="category.credited > 0">
+            <span>Added</span>
+            <strong>{{ category.credited | currency:'XAF':'symbol':'1.0-0' }}</strong>
+          </div>
+          <div>
+            <span>Remaining</span>
+            <strong [ngClass]="{'negative-text': category.remaining < 0}">
+              {{ category.remaining | currency:'XAF':'symbol':'1.0-0' }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div
+            class="fill-bar"
+            [ngClass]="category.status.toLowerCase().replace(' ', '-')"
+            [style.width.%]="category.percentage">
+          </div>
+        </div>
+
+        <div class="limit-editor">
+          <label [for]="'limit-' + category.name">Limit</label>
+          <input
+            [id]="'limit-' + category.name"
+            type="number"
+            min="0"
+            step="1000"
+            [(ngModel)]="category.limit"
+            [name]="'limit-' + category.name" />
+          <button type="button" class="btn-secondary-sm" (click)="saveCategoryLimit(category)">Save</button>
+        </div>
+
+        <p class="pct-text">{{ category.rawPercentage }}% used</p>
+      </div>
+
+      <div class="empty-card" *ngIf="categoryBudgets.length === 0">
+        No budget categories yet.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title">
+      <h2>Savings Goals</h2>
+      <span>Local goals</span>
+    </div>
+
+    <form class="goal-create-card" (ngSubmit)="addSavingsGoal()">
+      <div>
+        <h3>Add Savings Goal</h3>
+        <p>Create a target for money you want to set aside outside your monthly budget.</p>
+      </div>
+
+      <input
+        name="goalTitle"
+        type="text"
+        [(ngModel)]="newGoalTitle"
+        placeholder="Goal name" />
+      <input
+        name="goalTarget"
+        type="number"
+        min="0"
+        step="1000"
+        [(ngModel)]="newGoalTarget"
+        placeholder="Target amount" />
+      <input
+        name="goalDeadline"
+        type="text"
+        [(ngModel)]="newGoalDeadline"
+        placeholder="Deadline" />
+      <input
+        name="goalMonthlyContribution"
+        type="number"
+        min="0"
+        step="1000"
+        [(ngModel)]="newGoalMonthlyContribution"
+        placeholder="Monthly plan" />
+      <button class="btn-primary-sm" type="submit">Add Goal</button>
+    </form>
+
+    <div *ngIf="goalError" class="goal-alert">
+      {{ goalError }}
+    </div>
+
+    <div class="goals-stack">
+      <div class="goal-row-card" *ngFor="let goal of savingsGoals; let goalIndex = index">
+        <div class="goal-profile">
+          <div class="goal-heading">
+            <h3>{{ goal.title }}</h3>
+            <span>{{ goalProgress(goal) }}%</span>
+          </div>
+          <p>Target: {{ goal.target | currency:'XAF':'symbol':'1.0-0' }} / {{ goal.deadline }}</p>
+          <div class="goal-progress">
+            <div class="goal-progress-fill" [style.width.%]="goalProgress(goal)"></div>
+          </div>
+          <div class="goal-metrics">
+            <span>Saved: <strong>{{ goal.saved | currency:'XAF':'symbol':'1.0-0' }}</strong></span>
+            <span>Remaining: <strong>{{ goalRemaining(goal) | currency:'XAF':'symbol':'1.0-0' }}</strong></span>
+            <span>Monthly: <strong>{{ goal.monthlyContribution | currency:'XAF':'symbol':'1.0-0' }}</strong></span>
+          </div>
+        </div>
+
+        <div class="goal-actions">
+          <input
+            type="number"
+            min="0"
+            step="1000"
+            [(ngModel)]="goal.draftContribution"
+            [name]="'goal-' + goal.title"
+            placeholder="Amount" />
+          <button class="btn-primary-sm" type="button" (click)="addGoalFunds(goal)">Add Funds</button>
+          <button class="btn-danger-sm" type="button" (click)="removeSavingsGoal(goalIndex)">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

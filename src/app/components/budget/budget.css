@@ -1,0 +1,623 @@
+.main.container {
+  min-height: 100vh;
+  padding: 32px 64px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+}
+
+.view-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.header-text h1 {
+  margin: 0 0 6px;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.header-text p {
+  margin: 0;
+  color: #536685;
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.period-controls,
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.period-controls button,
+.period-controls input,
+.btn-secondary,
+.btn-primary,
+.btn-secondary-sm,
+.btn-primary-sm {
+  min-height: 40px;
+  border-radius: 8px;
+  border: 1px solid #d8e1ee;
+  background: #fff;
+  color: #17233c;
+  padding: 0 14px;
+  font-weight: 700;
+}
+
+.period-controls input {
+  color: #24344f;
+}
+
+.btn-primary,
+.btn-primary-sm {
+  background: #3b30e5;
+  color: #fff;
+  border-color: #3b30e5;
+}
+
+.btn-secondary,
+.btn-secondary-sm {
+  background: #fff;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.budget-alert {
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-weight: 600;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.metric-card,
+.overview-card,
+.budget-limit-card,
+.add-budget-card,
+.category-card,
+.goal-row-card,
+.empty-card,
+.budget-state {
+  background: #fff;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+}
+
+.metric-card {
+  min-height: 96px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.metric-card .label {
+  color: #526681;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.metric-card strong {
+  font-size: 24px;
+  color: #009b72;
+}
+
+.metric-card.spent strong,
+.metric-card.negative strong {
+  color: #ef3340;
+}
+
+.budget-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.7fr);
+  gap: 20px;
+}
+
+.overview-card,
+.budget-limit-card,
+.add-budget-card {
+  padding: 24px;
+}
+
+.budget-tools-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title-row,
+.section-title,
+.card-header,
+.goal-heading,
+.usage-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-title-row h2,
+.budget-limit-card h2,
+.add-budget-card h2,
+.section-title h2,
+.card-header h3,
+.goal-heading h3 {
+  margin: 0;
+}
+
+.card-title-row p,
+.usage-note,
+.section-title span,
+.goal-profile p,
+.pct-text {
+  margin: 4px 0 0;
+  color: #526681;
+  font-size: 14px;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-pill.on-track {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-pill.over-budget {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.usage-line {
+  margin-top: 24px;
+  color: #334155;
+  font-weight: 800;
+}
+
+.main-progress,
+.progress-container,
+.goal-progress {
+  width: 100%;
+  overflow: hidden;
+  background: #e5ebf3;
+  border-radius: 999px;
+}
+
+.main-progress {
+  height: 12px;
+  margin-top: 10px;
+}
+
+.main-progress-fill,
+.fill-bar,
+.goal-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: #3b30e5;
+}
+
+.main-progress-fill.on-track,
+.fill-bar.on-track {
+  background: #22c55e;
+}
+
+.main-progress-fill.warning,
+.fill-bar.warning {
+  background: #f59e0b;
+}
+
+.main-progress-fill.over-budget,
+.fill-bar.over-budget {
+  background: #ef4444;
+}
+
+.mini-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.mini-metrics div {
+  background: #f2f6fb;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mini-metrics span,
+.category-amounts span,
+.goal-metrics span {
+  color: #526681;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.budget-limit-card,
+.add-budget-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.budget-limit-card label,
+.add-budget-card label,
+.limit-editor label {
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.budget-limit-card input,
+.add-budget-card input,
+.limit-editor input,
+.goal-actions input {
+  min-height: 42px;
+  border: 1px solid #d8e1ee;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #fff;
+  color: #0f172a;
+}
+
+.limit-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.limit-summary span {
+  background: #f8fafc;
+  border-radius: 8px;
+  color: #526681;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.limit-summary strong {
+  color: #0f172a;
+  display: block;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.category-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.category-amounts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.category-amounts div {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-amounts strong {
+  font-size: 16px;
+}
+
+.negative-text {
+  color: #ef3340;
+}
+
+.progress-container {
+  height: 9px;
+}
+
+.limit-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: end;
+}
+
+.limit-editor label {
+  grid-column: 1 / -1;
+}
+
+.btn-secondary-sm,
+.btn-primary-sm {
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+.empty-card,
+.budget-state {
+  padding: 28px;
+  color: #526681;
+  text-align: center;
+}
+
+.goals-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.goal-row-card {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.35fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.goal-create-card {
+  background: #fff;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) repeat(4, minmax(120px, 1fr)) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.goal-create-card h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.goal-create-card p {
+  margin: 0;
+  color: #526681;
+  font-size: 13px;
+}
+
+.goal-create-card input {
+  min-height: 42px;
+  border: 1px solid #d8e1ee;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #fff;
+  color: #0f172a;
+}
+
+.goal-alert {
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-weight: 700;
+}
+
+.goal-heading span {
+  color: #3b30e5;
+  font-weight: 900;
+}
+
+.goal-progress {
+  height: 10px;
+  margin: 12px 0;
+}
+
+.goal-progress-fill {
+  background: #3b30e5;
+}
+
+.goal-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.goal-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.btn-danger-sm {
+  min-height: 42px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fff1f2;
+  color: #b91c1c;
+  padding: 0 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-danger-sm:hover {
+  background: #ffe4e6;
+}
+
+@media (max-width: 1100px) {
+  .main.container {
+    padding: 28px;
+  }
+
+  .summary-grid,
+  .categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .budget-overview,
+  .goal-row-card,
+  .goal-create-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .main.container {
+    padding: 18px 14px;
+    gap: 20px;
+  }
+
+  .view-header,
+  .header-tools,
+  .header-actions {
+    align-items: stretch;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header-tools .period-controls {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px;
+    padding: 5px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+
+  .header-tools .period-controls button,
+  .header-tools .period-controls input {
+    min-height: 36px;
+    height: 36px;
+    min-width: 0;
+    padding: 0 9px;
+    border-radius: 8px;
+    background: #f8fafc;
+    font-size: 12px;
+  }
+
+  .header-tools .period-controls button {
+    min-width: 56px;
+  }
+
+  .header-tools .period-controls input {
+    width: 100%;
+  }
+
+  .summary-grid,
+  .categories-grid,
+  .mini-metrics,
+  .category-amounts,
+  .limit-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .header-text h1 {
+    font-size: 24px;
+  }
+
+  .header-text p,
+  .card-title-row p,
+  .usage-note,
+  .section-title span,
+  .goal-profile p,
+  .pct-text {
+    font-size: 12px;
+  }
+
+  .metric-card,
+  .overview-card,
+  .budget-limit-card,
+  .add-budget-card,
+  .category-card,
+  .goal-row-card,
+  .goal-create-card {
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .metric-card {
+    min-height: 82px;
+  }
+
+  .metric-card strong {
+    font-size: 20px;
+  }
+
+  .card-title-row h2,
+  .budget-limit-card h2,
+  .add-budget-card h2,
+  .section-title h2 {
+    font-size: 18px;
+  }
+
+  .category-amounts strong {
+    font-size: 15px;
+  }
+
+  .card-title-row,
+  .card-header,
+  .goal-heading,
+  .usage-line {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .limit-editor {
+    grid-template-columns: 1fr;
+  }
+}

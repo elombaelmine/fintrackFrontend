@@ -1,0 +1,110 @@
+<div class="settings-page">
+  <header class="settings-header">
+    <div>
+      <h1>Settings</h1>
+      <p>Manage your account, security, and profile identity.</p>
+    </div>
+  </header>
+
+  <div class="settings-grid">
+    <section class="settings-card profile-card">
+      <div class="card-heading">
+        <span class="material-symbols-outlined" aria-hidden="true">account_circle</span>
+        <div>
+          <h2>Profile</h2>
+          <p>Update the avatar and contact email connected to your account.</p>
+        </div>
+      </div>
+
+      <div class="profile-editor">
+        <div class="avatar-preview">
+          <img *ngIf="profileAvatar" [src]="profileAvatar" alt="Profile avatar" />
+          <span *ngIf="!profileAvatar">{{ avatarInitial }}</span>
+        </div>
+
+        <div class="avatar-actions">
+          <label class="upload-button" for="avatar-upload">
+            <span class="material-symbols-outlined" aria-hidden="true">upload</span>
+            Upload Avatar
+          </label>
+          <input id="avatar-upload" type="file" accept="image/*" (change)="onAvatarSelected($event)" />
+          <button type="button" class="ghost-button" (click)="removeAvatar()" [disabled]="!profileAvatar">
+            <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+            Remove
+          </button>
+          <small *ngIf="avatarError" class="field-error">{{ avatarError }}</small>
+        </div>
+      </div>
+
+      <form class="settings-form" (ngSubmit)="saveProfile()">
+        <div class="form-row">
+          <label for="settings-username">Username</label>
+          <input id="settings-username" type="text" [value]="username" readonly />
+        </div>
+
+        <div class="form-row">
+          <label for="settings-email">Email Address</label>
+          <input id="settings-email" name="email" type="email" [(ngModel)]="email" />
+        </div>
+
+        <div *ngIf="profileError" class="status-alert danger">{{ profileError }}</div>
+        <div *ngIf="profileMessage" class="status-alert success">{{ profileMessage }}</div>
+
+        <button type="submit" class="primary-button" [disabled]="isSavingProfile">
+          <span class="material-symbols-outlined" aria-hidden="true">save</span>
+          {{ isSavingProfile ? 'Saving...' : 'Save Profile' }}
+        </button>
+      </form>
+    </section>
+
+    <section class="settings-card security-card">
+      <div class="card-heading">
+        <span class="material-symbols-outlined" aria-hidden="true">lock</span>
+        <div>
+          <h2>Security</h2>
+          <p>Change your password using your current credentials.</p>
+        </div>
+      </div>
+
+      <form class="settings-form" (ngSubmit)="changePassword()">
+        <div class="form-row">
+          <label for="current-password">Current Password</label>
+          <input
+            id="current-password"
+            name="currentPassword"
+            type="password"
+            [(ngModel)]="passwordForm.currentPassword"
+            autocomplete="current-password" />
+        </div>
+
+        <div class="form-row">
+          <label for="new-password">New Password</label>
+          <input
+            id="new-password"
+            name="newPassword"
+            type="password"
+            [(ngModel)]="passwordForm.newPassword"
+            autocomplete="new-password" />
+        </div>
+
+        <div class="form-row">
+          <label for="confirm-password">Confirm New Password</label>
+          <input
+            id="confirm-password"
+            name="confirmPassword"
+            type="password"
+            [(ngModel)]="passwordForm.confirmPassword"
+            autocomplete="new-password" />
+        </div>
+
+        <div *ngIf="passwordError" class="status-alert danger">{{ passwordError }}</div>
+        <div *ngIf="passwordMessage" class="status-alert success">{{ passwordMessage }}</div>
+
+        <button type="submit" class="primary-button" [disabled]="isChangingPassword">
+          <span class="material-symbols-outlined" aria-hidden="true">key</span>
+          {{ isChangingPassword ? 'Changing...' : 'Change Password' }}
+        </button>
+      </form>
+    </section>
+  </div>
+</div>

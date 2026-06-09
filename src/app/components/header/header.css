@@ -1,0 +1,296 @@
+/* ==========================================
+   FINTRACK MANAGEMENT SYSTEM LIGHT BAR HEADER
+   ========================================== */
+
+:root {
+  --header-bg: #ffffff;
+  --header-border: #f0f2f5;
+  --text-dark: #1e293b;
+  --text-muted: #94a3b8;
+  --avatar-bg: #cbd5e1; /* Soft gray circular skeleton from your screenshot */
+}
+
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: var(--header-bg);
+  border-bottom: 2px solid var(--header-border);
+  height: 80px;
+  box-sizing: border-box;
+}
+
+/* --- Search Bar Container --- */
+.search-box-wrapper {
+  position: relative;
+  flex: 0 1 320px;
+}
+
+.mobile-menu-button {
+  display: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 42px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px; /* Clean, pill-shaped layout from your UI */
+  color: var(--text-dark);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--text-muted);
+  background: #ffffff;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.search-icon,
+.search-clear-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-icon {
+  left: 15px;
+  color: #94a3b8;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.search-clear-button {
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-clear-button:hover {
+  background: #e2e8f0;
+}
+
+/* --- Profile Section Widget Wrapper --- */
+.user-profile-widget {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.notification-bell {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffb800; /* Soft gold/orange bell accent from your UI */
+}
+
+.notification-bell .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.notification-bell:hover {
+  background: #fff7ed;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  padding: 0 5px;
+  background: #ef4444;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.account-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- Username & Role Layout Blocks --- */
+.user-meta-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  min-width: 0;
+}
+
+.user-name-placeholder {
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 700; /* Bold style matching your "Welcome" banner */
+  text-transform: capitalize;
+}
+
+.user-role-placeholder {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+/* --- Circular Avatar Frame --- */
+.user-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #f1f5f9;
+  border-radius: 50%; /* Perfectly rounded circle badge */
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  user-select: none;
+  overflow: hidden;
+}
+
+.user-avatar-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.default-profile-icon {
+  font-size: 40px;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+  line-height: 1;
+}
+
+.logout-button {
+  min-height: 38px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fff1f2;
+  color: #b91c1c;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logout-button:hover {
+  background: #ffe4e6;
+}
+
+@media (max-width: 760px) {
+  .top-header {
+    position: sticky;
+    height: auto;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "menu . profile"
+      "search search search";
+    align-items: center;
+    gap: 10px 12px;
+    padding: 10px 12px 12px;
+  }
+
+  .mobile-menu-button {
+    grid-area: menu;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #3b30e5;
+    color: #fff;
+    display: inline-flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    appearance: none;
+    box-shadow: 0 0 0 4px #eef2ff, 0 8px 18px rgba(59, 48, 229, 0.2);
+  }
+
+  .mobile-menu-button .material-symbols-outlined {
+    font-size: 24px;
+  }
+
+  .search-box-wrapper {
+    grid-area: search;
+    width: 100%;
+    flex: none;
+    min-width: 0;
+  }
+
+  .search-input {
+    height: 42px;
+    padding: 10px 38px;
+    font-size: 13px;
+  }
+
+  .user-profile-widget {
+    grid-area: profile;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .account-cluster {
+    width: auto;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .notification-bell {
+    width: 42px;
+    height: 42px;
+  }
+
+  .notification-bell .material-symbols-outlined {
+    font-size: 25px;
+  }
+
+  .user-avatar-placeholder {
+    width: 38px;
+    height: 38px;
+  }
+
+  .user-meta-info,
+  .logout-button {
+    display: none;
+  }
+}

@@ -1,0 +1,52 @@
+<header class="top-header">
+  <button type="button" class="mobile-menu-button" (click)="openMenu()" aria-label="Open menu">
+    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+  </button>
+
+  <div class="search-box-wrapper">
+    <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
+    <input
+      type="text"
+      class="search-input"
+      [(ngModel)]="searchQuery"
+      (keyup.enter)="submitSearch()"
+      placeholder="Search transactions..." />
+    <button
+      *ngIf="searchQuery"
+      type="button"
+      class="search-clear-button"
+      aria-label="Clear search"
+      (click)="clearSearch()">
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+  </div>
+
+  <div class="user-profile-widget">
+    <button type="button" class="notification-bell" (click)="openNotifications()" aria-label="Open notifications">
+      <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+      <span class="notification-badge" *ngIf="unreadNotifications > 0">
+        {{ unreadNotifications > 99 ? '99+' : unreadNotifications }}
+      </span>
+    </button>
+
+    <div class="account-cluster">
+      <div class="user-avatar-placeholder">
+        <img *ngIf="profileAvatar" [src]="profileAvatar" alt="Profile avatar" />
+        <span *ngIf="!profileAvatar" class="material-symbols-outlined default-profile-icon" aria-hidden="true">
+          account_circle
+        </span>
+      </div>
+
+      <div class="user-meta-info">
+        <div class="user-name-placeholder">
+          {{ displayUsername }}
+        </div>
+      </div>
+
+      <button type="button" class="logout-button" (click)="logout()">
+        <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+        Logout
+      </button>
+    </div>
+  </div>
+</header>

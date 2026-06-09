@@ -1,0 +1,150 @@
+<div class="main-container">
+  
+  <div class="slide1">
+    <div class="text">
+      <h1>Welcome to FinTrack, {{ username }}</h1>
+      <p>Here's what's happening with your finances in {{ selectedMonthLabel }}.</p>
+    </div>
+    <div class="period-controls" aria-label="Select overview month">
+      <button type="button" (click)="changeMonth(-1)">Previous</button>
+      <input type="month" [(ngModel)]="selectedMonth" (ngModelChange)="applyMonthFilter()" />
+      <button type="button" (click)="changeMonth(1)">Next</button>
+    </div>
+    <div class="total-balance-card">
+      <h2>Net Balance</h2>
+      <p [ngClass]="{'positive-funds': totalBalance >= 0, 'negative-funds': totalBalance < 0}">
+        {{ totalBalance | currency:'XAF':'symbol':'1.0-0' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <span>Total Income</span>
+      <strong class="income">{{ totalIncome | currency:'XAF':'symbol':'1.0-0' }}</strong>
+    </div>
+    <div class="summary-card">
+      <span>Total Expenses</span>
+      <strong class="expense">{{ totalSpent | currency:'XAF':'symbol':'1.0-0' }}</strong>
+    </div>
+    <div class="summary-card">
+      <span>Remaining Budget</span>
+      <strong [ngClass]="{'positive-funds': remainingBudget >= 0, 'negative-funds': remainingBudget < 0}">
+        {{ remainingBudget | currency:'XAF':'symbol':'1.0-0' }}
+      </strong>
+    </div>
+    <div class="summary-card">
+      <span>Savings Rate</span>
+      <strong [ngClass]="{'positive-funds': savingsRate >= 0, 'negative-funds': savingsRate < 0}">
+        {{ savingsRate }}%
+      </strong>
+    </div>
+  </div>
+
+  <div class="slide2">
+    <div class="left-card">
+      <div class="card-header">
+        <h2>Monthly Budget</h2>
+        <span class="budget-status" [ngClass]="budgetStatusClass">{{ budgetStatusLabel }}</span>
+      </div>
+      <div class="progressbar-stats">
+        <h4>Spent: <span>{{ totalSpent | currency:'XAF':'symbol':'1.0-0' }}</span></h4>
+        <h4>Total: <span>{{ monthlyBudgetLimit | currency:'XAF':'symbol':'1.0-0' }}</span></h4>
+      </div>
+      <div class="budget-progress-track" aria-label="Monthly budget usage">
+        <div class="budget-progress-fill" [ngClass]="budgetStatusClass" [style.width.%]="budgetUsedPercent"></div>
+      </div>
+      <p class="budget-percent-text">{{ budgetUsedPercent }}% of budget used this month.</p>
+      <p class="budget-remaining-text">
+        You have {{ remainingBudget | currency:'XAF':'symbol':'1.0-0' }} left for {{ daysLeft }} remaining days.
+      </p>
+      <div class="bottom-metrics">
+        <div class="metric-box">Daily AVG: <strong>{{ dailyAverage | currency:'XAF':'symbol':'1.0-0' }}</strong></div>
+        <div class="metric-box">PROJECTED: <strong>{{ projectedSpending | currency:'XAF':'symbol':'1.0-0' }}</strong></div>
+      </div>
+    </div>
+    
+    <div class="right-card">
+      <div class="card-header">
+        <h1>Spending by Category</h1>
+        <div class="timeframe-pill">{{ selectedMonthLabel }}</div>
+      </div>
+      <div class="category-chart">
+        <div class="cat-row" *ngFor="let category of categoryBreakdown">
+          <div class="cat-info">
+            <p>{{ category.name }}</p>
+            <div class="cat-progress-track">
+              <div class="cat-progress-fill" [style.width.%]="category.percentage"></div>
+            </div>
+          </div>
+          <div class="cat-value">
+            <strong>{{ category.amount | currency:'XAF':'symbol':'1.0-0' }}</strong>
+            <span>{{ category.percentage }}%</span>
+          </div>
+        </div>
+        <div class="category-empty" *ngIf="categoryBreakdown.length === 0">
+          No expenses recorded for this month.
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div class="slide3">
+    <div class="table-header-wrapper">
+      <div>
+        <h1>Recent Transactions</h1>
+        <p class="table-subtitle">{{ transactions.length }} transaction{{ transactions.length === 1 ? '' : 's' }} in {{ selectedMonthLabel }}</p>
+      </div>
+      <div class="table-actions">
+        <button type="button" class="refresh-btn" (click)="refreshDashboardLedger()" [disabled]="isLoadingLedger">
+          {{ isLoadingLedger ? 'Refreshing...' : 'Refresh' }}
+        </button>
+        <button type="button" class="download-btn" (click)="downloadReport()" [disabled]="transactions.length === 0">
+          Download Report
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="ledgerError" class="overview-alert">
+      {{ ledgerError }}
+    </div>
+
+    <div *ngIf="isLoadingLedger" class="overview-state">
+      Loading transactions...
+    </div>
+
+    <div *ngIf="!isLoadingLedger && !ledgerError && transactions.length === 0" class="overview-state empty">
+      <p>No transactions recorded for {{ selectedMonthLabel }}.</p>
+      <a routerLink="/add-transaction">Add your first transaction</a>
+    </div>
+
+    <div class="heading-row" *ngIf="!isLoadingLedger && transactions.length > 0">
+      <h2>TRANSACTION</h2>
+      <h2>CATEGORY</h2>
+      <h2>DATE</h2>
+      <h2>AMOUNT</h2>
+      <h2>STATUS</h2>
+    </div>
+
+    <div class="transaction-card-grid" *ngIf="!isLoadingLedger && transactions.length > 0">
+      <div class="transaction-data-row" *ngFor="let item of displayedTransactions">
+        <div class="cell">{{ item.description }}</div>
+        <div class="cell"><span class="cat-badge">{{ item.category }}</span></div>
+        <div class="cell">{{ item.date | date:'mediumDate' }}</div>
+        <div class="cell" [ngClass]="item.type">
+          {{ item.type === 'income' ? '+' : '-' }}{{ item.amount | currency:'XAF':'symbol':'1.0-0' }}
+        </div>
+        <div class="cell">
+          <span class="status-indicator" [className]="'status-' + (item.status || 'Completed').toLowerCase()">
+            {{ item.status || 'Completed' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <p class="table-footnote" *ngIf="transactions.length > displayedTransactions.length">
+      Showing the latest {{ displayedTransactions.length }} transactions. Download the report to export all {{ transactions.length }}.
+    </p>
+  </div>
+
+</div>

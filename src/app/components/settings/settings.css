@@ -1,0 +1,262 @@
+.settings-page {
+  min-height: 100%;
+  padding: 32px 40px;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.settings-header h1 {
+  margin: 0 0 6px;
+  font-size: 32px;
+}
+
+.settings-header p,
+.card-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.8fr);
+  gap: 20px;
+}
+
+.settings-card {
+  background: #fff;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.card-heading > .material-symbols-outlined {
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #3b30e5;
+}
+
+.card-heading h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.profile-editor {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.avatar-preview {
+  width: 86px;
+  height: 86px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #e2e8f0;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px #dbe4f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b30e5;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#avatar-upload {
+  display: none;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-row label {
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.form-row input {
+  min-height: 44px;
+  border: 1px solid #d8e1ee;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  padding: 0 12px;
+  outline: none;
+}
+
+.form-row input:focus {
+  border-color: #3b30e5;
+  box-shadow: 0 0 0 3px rgba(59, 48, 229, 0.12);
+}
+
+.form-row input[readonly] {
+  background: #f8fafc;
+  color: #64748b;
+}
+
+.primary-button,
+.upload-button,
+.ghost-button {
+  min-height: 42px;
+  border-radius: 8px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-button {
+  width: max-content;
+  border: 1px solid #3b30e5;
+  background: #3b30e5;
+  color: #fff;
+}
+
+.upload-button,
+.ghost-button {
+  border: 1px solid #d8e1ee;
+  background: #fff;
+  color: #334155;
+}
+
+.ghost-button:disabled,
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.status-alert,
+.field-error {
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field-error {
+  width: 100%;
+  color: #b91c1c;
+  padding: 0;
+}
+
+.status-alert.danger {
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #b91c1c;
+}
+
+.status-alert.success {
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+@media (max-width: 1040px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .settings-page {
+    padding: 18px 14px;
+  }
+
+  .settings-header h1 {
+    font-size: 24px;
+  }
+
+  .settings-header p,
+  .card-heading p {
+    font-size: 12px;
+  }
+
+  .settings-card {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .card-heading {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .card-heading h2 {
+    font-size: 18px;
+  }
+
+  .card-heading > .material-symbols-outlined {
+    width: 36px;
+    height: 36px;
+  }
+
+  .avatar-preview {
+    width: 72px;
+    height: 72px;
+    font-size: 24px;
+  }
+
+  .profile-editor {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .primary-button,
+  .upload-button,
+  .ghost-button {
+    width: 100%;
+  }
+
+  .form-row input {
+    min-height: 42px;
+    font-size: 13px;
+  }
+}

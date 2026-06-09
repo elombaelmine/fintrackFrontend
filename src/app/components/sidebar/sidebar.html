@@ -1,0 +1,54 @@
+<aside class="sidebar">
+  <div class="brand-section">
+    <h1 class="brand-title">FinTrack</h1>
+    <p class="brand-subtitle">Financial Stewardship</p>
+  </div>
+
+  <nav class="navigation-links">
+    <a routerLink="/overview" routerLinkActive="active-link" class="nav-item" (click)="notifyNavigation()">
+      <span class="material-symbols-outlined" aria-hidden="true">dashboard</span>
+      Overview
+    </a>
+    <a routerLink="/history" routerLinkActive="active-link" class="nav-item" (click)="notifyNavigation()">
+      <span class="material-symbols-outlined" aria-hidden="true">history</span>
+      History
+    </a>
+    <a routerLink="/budget" routerLinkActive="active-link" class="nav-item" (click)="notifyNavigation()">
+      <span class="material-symbols-outlined" aria-hidden="true">account_balance_wallet</span>
+      Budgets
+    </a>
+    <!-- <a routerLink="/profile" routerLinkActive="active-link" class="nav-item">Profile</a> -->
+  </nav>
+
+  <div class="action-section">
+    <button class="btn-action" type="button" (click)="onAddTransaction()">
+      <span class="material-symbols-outlined" aria-hidden="true">add</span>
+      Add Transaction
+    </button>
+  </div>
+ 
+  <footer class="sidebar-footer">
+    <div class="mobile-account-panel">
+      <div class="mobile-account-avatar">
+        <img *ngIf="profileAvatar" [src]="profileAvatar" alt="Profile avatar" />
+        <span *ngIf="!profileAvatar">{{ displayUsername.charAt(0).toUpperCase() }}</span>
+      </div>
+      <div>
+        <strong>{{ displayUsername }}</strong>
+        <button type="button" class="mobile-logout" (click)="logout()">
+          <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <a routerLink="/settings" class="footer-item" (click)="notifyNavigation()">
+      <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+      Settings
+    </a>
+    <a routerLink="/support" class="footer-item" (click)="notifyNavigation()">
+      <span class="material-symbols-outlined" aria-hidden="true">help</span>
+      Support
+    </a>
+  </footer>
+</aside>

@@ -1,0 +1,430 @@
+.main.container {
+  min-height: 100vh;
+  padding: 32px 40px;
+  background: #f8fafc;
+}
+
+.slide1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.left h1 {
+  margin-bottom: 6px;
+  color: #0f172a;
+  font-size: 30px;
+}
+
+.left p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.right {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 14px;
+  width: min(720px, 100%);
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.summary-label {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.summary-card p {
+  margin: 0;
+  color: #0f172a;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.summary-card.income p,
+.summary-card.positive p {
+  color: #059669;
+}
+
+.summary-card.expenses p,
+.summary-card.negative p {
+  color: #dc2626;
+}
+
+.slide2 {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 18px;
+  margin-bottom: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.search-box,
+.filter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-box {
+  flex: 1.4;
+  min-width: 220px;
+}
+
+.dropdowns-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
+  gap: 14px;
+  flex: 2.2;
+  min-width: 0;
+}
+
+.search-box label,
+.filter-box label {
+  color: #334155;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.search-box input,
+.filter-box select {
+  height: 42px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #0f172a;
+  outline: none;
+}
+
+.search-box input:focus,
+.filter-box select:focus {
+  border-color: #3b30e5;
+  background: #ffffff;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 10px;
+}
+
+.btn-secondary,
+.btn-primary {
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  border: 1px solid #dbe3ef;
+  background: #ffffff;
+  color: #334155;
+}
+
+.btn-primary {
+  border: 1px solid #3b30e5;
+  background: #3b30e5;
+  color: #ffffff;
+}
+
+.btn-secondary:disabled,
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.result-strip {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 12px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.result-strip strong {
+  color: #0f172a;
+  font-size: 18px;
+}
+
+.slide3 {
+  container-type: inline-size;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.table-header,
+.transaction-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.table-header {
+  padding: 18px 20px;
+  border-bottom: 2px solid #f1f5f9;
+  background: #f8fafc;
+}
+
+.table-header h2 {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.transaction-row {
+  padding: 18px 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cell {
+  min-width: 0;
+  color: #334155;
+  font-size: 14px;
+}
+
+.merchant-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.merchant-cell small {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.badge,
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.category-badge {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.income {
+  color: #059669;
+  font-weight: 800;
+}
+
+.expense {
+  color: #dc2626;
+  font-weight: 800;
+}
+
+.history-alert {
+  margin: 18px;
+  padding: 13px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.history-state,
+.empty-state {
+  padding: 42px 24px;
+  text-align: center;
+  color: #64748b;
+}
+
+.empty-state button {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #334155;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 1180px) {
+  .slide1,
+  .slide2 {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .right {
+    width: 100%;
+  }
+}
+
+@media (max-width: 820px) {
+  .main.container {
+    padding: 18px 14px;
+  }
+
+  .left h1 {
+    font-size: 24px;
+  }
+
+  .left p {
+    font-size: 13px;
+  }
+
+  .summary-card,
+  .slide2 {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .summary-card p {
+    font-size: 17px;
+  }
+
+  .right,
+  .dropdowns-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filter-actions {
+    flex-wrap: wrap;
+  }
+
+  .table-header {
+    display: none;
+  }
+
+  .transaction-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 9px 12px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+  }
+
+  .cell {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .transaction-list {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .merchant-cell {
+    display: contents;
+  }
+
+  .merchant-cell > span,
+  .merchant-cell > small {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+  }
+
+  .merchant-cell > span {
+    color: #334155;
+  }
+
+  .merchant-cell > small {
+    color: #64748b;
+  }
+}
+
+@media (max-width: 520px) {
+  .right,
+  .dropdowns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@container (max-width: 640px) {
+  .table-header {
+    display: none;
+  }
+
+  .transaction-list {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .transaction-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 9px 12px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+  }
+
+  .cell {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .merchant-cell {
+    display: contents;
+  }
+
+  .merchant-cell > span,
+  .merchant-cell > small {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+  }
+
+  .merchant-cell > span {
+    color: #334155;
+  }
+
+  .merchant-cell > small {
+    color: #64748b;
+  }
+}

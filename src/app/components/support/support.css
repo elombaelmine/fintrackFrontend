@@ -1,0 +1,158 @@
+.support-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.support-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.support-card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.support-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 16px;
+}
+
+.summary-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #495057;
+  margin-bottom: 24px;
+}
+
+.feature-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.feature-item {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.feature-item strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #212529;
+  margin-bottom: 6px;
+}
+
+.feature-item p {
+  font-size: 13px;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.admin-contact p {
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.contact-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: #f1f3f5;
+  padding: 16px;
+  border-radius: 8px;
+  width: max-content;
+}
+
+.email-icon {
+  font-size: 24px;
+  color: #3b30e5;
+}
+
+.badge-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-details .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.email-link {
+  font-size: 15px;
+  color: #3b30e5;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .support-container {
+    gap: 20px;
+    padding: 18px 14px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-subtitle,
+  .admin-contact p,
+  .summary-text {
+    font-size: 13px;
+  }
+
+  .support-grid {
+    gap: 16px;
+  }
+
+  .support-card {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .support-card h3 {
+    font-size: 17px;
+  }
+
+  .feature-highlights {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-badge {
+    width: 100%;
+  }
+}

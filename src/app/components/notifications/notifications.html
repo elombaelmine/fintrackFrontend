@@ -1,0 +1,70 @@
+<div class="notifications-page">
+  <header class="notifications-header">
+    <div>
+      <h1>Notifications</h1>
+      <p>Budget alerts, category warnings, and spending pace updates.</p>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="secondary-button" (click)="markAllAsRead()" [disabled]="unreadCount === 0">
+        <span class="material-symbols-outlined" aria-hidden="true">done_all</span>
+        Mark all read
+      </button>
+      <button type="button" class="danger-button" (click)="clearAll()" [disabled]="notifications.length === 0">
+        <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+        Clear
+      </button>
+    </div>
+  </header>
+
+  <div class="summary-strip">
+    <div>
+      <span>Unread</span>
+      <strong>{{ unreadCount }}</strong>
+    </div>
+    <div>
+      <span>Total</span>
+      <strong>{{ notifications.length }}</strong>
+    </div>
+  </div>
+
+  <section class="notification-list" *ngIf="notifications.length > 0">
+    <article
+      class="notification-card"
+      *ngFor="let notification of notifications"
+      [ngClass]="[notification.severity, notification.read ? 'read' : 'unread']">
+      <div class="notification-icon">
+        <span class="material-symbols-outlined" aria-hidden="true">
+          {{ severityIcon(notification) }}
+        </span>
+      </div>
+
+      <div class="notification-body">
+        <div class="notification-title-row">
+          <h2>{{ notification.title }}</h2>
+          <span class="unread-dot" *ngIf="!notification.read"></span>
+        </div>
+        <p>{{ notification.message }}</p>
+        <div class="notification-meta">
+          <span>{{ notification.monthKey }}</span>
+          <span>{{ notification.createdAt | date:'medium' }}</span>
+          <span *ngIf="notification.category">{{ notification.category }}</span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="mark-button"
+        (click)="markAsRead(notification)"
+        [disabled]="notification.read">
+        {{ notification.read ? 'Read' : 'Mark read' }}
+      </button>
+    </article>
+  </section>
+
+  <section class="empty-state" *ngIf="notifications.length === 0">
+    <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+    <h2>No notifications yet</h2>
+    <p>Budget and category alerts will appear here when spending approaches your limits.</p>
+  </section>
+</div>
