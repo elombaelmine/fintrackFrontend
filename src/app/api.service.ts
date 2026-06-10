@@ -130,19 +130,19 @@ export class ApiService {
   }
 
   private resolveApiUrl(): string {
-    if (typeof window === 'undefined') {
-      return 'https://fintrackbackend-xtg8.onrender.com/api';
-    }
-
-    const configuredUrl = window.finTrackConfig?.apiBaseUrl?.trim();
-    if (configuredUrl) {
-      return configuredUrl.replace(/\/+$/, '');
-    }
-
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return 'http://localhost:3000/api';
-    }
-
-    return `${window.location.origin}/api`;
+    // Hardcode the production URL so it never fails or defaults to the frontend domain
+    return 'https://fintrackbackend-xtg8.onrender.com/api';
   }
+
+  //   const configuredUrl = window.finTrackConfig?.apiBaseUrl?.trim();
+  //   if (configuredUrl) {
+  //     return configuredUrl.replace(/\/+$/, '');
+  //   }
+
+  //   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  //     return 'http://localhost:3000/api';
+  //   }
+
+  //   return `${window.location.origin}/api`;
+  // }
 }
